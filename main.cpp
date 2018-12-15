@@ -23,7 +23,7 @@ int main() {
 		return 0;
 	}
 	
-	int randomNum = ((rand() % 3)+1); //random number generator for selecting word
+	int randomNum = ((rand() % 10)+1); //random number generator for selecting word
 	for(int i=0; i < randomNum; i++) {	
 		std::getline(wordFile, targetWord);	//get selected word
 	}
