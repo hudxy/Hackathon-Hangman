@@ -37,8 +37,10 @@ int main() {
   wordFile.close();
 }
 
-//function takes in the game counter as a parameter
-//prints corresponding hangman
+/*************************************************************************************************************
+function takes in the game counter as a parameter
+prints corresponding hangman
+**************************************************************************************************************/
 void printMan(int counter) {
 	switch(counter) {
 		case 0: {
@@ -50,6 +52,7 @@ void printMan(int counter) {
 			cout << "         | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 		case 1: {
 			cout << endl;
@@ -60,6 +63,7 @@ void printMan(int counter) {
 			cout << "         | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 		case 2: {
 			cout << endl;
@@ -70,6 +74,7 @@ void printMan(int counter) {
 			cout << "         | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 		case 3: {
 			cout << endl;
@@ -80,6 +85,7 @@ void printMan(int counter) {
 			cout << "    \\    | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 		case 4: {
 			cout << endl;
@@ -90,6 +96,7 @@ void printMan(int counter) {
 			cout << "  / \\    | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 		case 5: {
 			cout << endl;
@@ -100,6 +107,7 @@ void printMan(int counter) {
 			cout << "  / \\    | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 		case 6: {
 			cout << endl;
@@ -110,6 +118,7 @@ void printMan(int counter) {
 			cout << "  / \\    | \n";
 			cout << "        ---\n";
 			cout << endl;
+			break;
 		}
 	}
 }
