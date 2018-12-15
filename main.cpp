@@ -9,8 +9,11 @@ using std::endl;
 using std::fstream;
 using std::string;
 
+void printMan(int);
+
 int main() {
 	srand((unsigned)time(0));	//seed for random number generator
+	int counter; //variable to keep track of 
 	string targetWord;
 	fstream wordFile;
 
@@ -28,5 +31,85 @@ int main() {
 	cout << targetWord;	//debugging (can delete later)
 
 
+	printMan(counter);
+	
+
   wordFile.close();
+}
+
+//function takes in the game counter as a parameter
+//prints corresponding hangman
+void printMan(int counter) {
+	switch(counter) {
+		case 0: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << "         | \n";
+			cout << "         | \n";
+			cout << "         | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+		case 1: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << "   O     | \n";
+			cout << "         | \n";
+			cout << "         | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+		case 2: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << "   O     | \n";
+			cout << "   X     | \n";
+			cout << "         | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+		case 3: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << "   O     | \n";
+			cout << "   X     | \n";
+			cout << "    \\    | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+		case 4: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << "   O     | \n";
+			cout << "   X     | \n";
+			cout << "  / \\    | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+		case 5: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << "   O /   | \n";
+			cout << "   X     | \n";
+			cout << "  / \\    | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+		case 6: {
+			cout << endl;
+			cout << "   ------  \n";
+			cout << "   |     | \n";
+			cout << " \\ O /   | \n";
+			cout << "   X     | \n";
+			cout << "  / \\    | \n";
+			cout << "        ---\n";
+			cout << endl;
+		}
+	}
 }
