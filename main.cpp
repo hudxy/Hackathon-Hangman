@@ -13,20 +13,29 @@ void printMan(int);
 string wordSelect();
 void input(string);
 
+
 int main() {
 	int counter; //variable to keep track of 
 	string targetWord;
 	
 	targetWord = wordSelect();
 		
-	cout << targetWord;	//debugging (can delete later)
+	cout << targetWord << endl;	//debugging (can delete later)
 	
-	input(targetWord);
+	//input(targetWord);
 
-	printMan(counter);
+	//printMan(counter);
+
 	
 
-  	return 0;
+	while(counter < 7) {
+		input(targetWord);
+		printMan(counter);
+		counter++;
+	}
+	
+
+	return 0;
 }
 
 /***********************************************************************************************************
@@ -45,7 +54,7 @@ string wordSelect()
 		exit(0);
 	}
 	
-  while (wordFile >> targetValue) //counts how many words are in the file
+  while (wordFile >> targetWord) //counts how many words are in the file
     count++;
     
 	int randomNum = ((rand() % count)+1); //random number generator for selecting word
@@ -155,4 +164,18 @@ Loops to validate input and compare input to correct answer
 *******************************************************************************************************/
 void input(string word)
 {
+	char first;
+	cout << "Please enter a character to guess... (A-Z)" << endl;
+	cin >> first;
+	char input = tolower(first);
 	
+	for(int i =0; i< word.length(); i++) {
+		if(input == word[i]) {
+			cout << word[i];
+		}
+		else {
+			cout << "_" << " ";
+		}
+	}
+	cout << endl;
+}
