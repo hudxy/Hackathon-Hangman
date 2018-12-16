@@ -22,13 +22,13 @@ char getUserInput(vector<char>);
 bool gameOver(vector<char>, string);
 
 
-int main() {
+int main() 
+{
 	int counter=0; //variable to keep track of 
 	srand((unsigned)time(0));	//seed for random number generator
 	string targetWord;
   char play = ' ';
   bool gameState = true;	//intialize the start of the game
- 
   while (gameState)
   {
     cout << "HANGMAN" << endl;
@@ -36,18 +36,33 @@ int main() {
     targetWord = wordSelect();	//variable for random word
 
    
-		while(counter < 7)
-      {
-        printMan(counter);
-				printArray(guess);
-				char temp = getUserInput(guess);
-        if(input(targetWord,guess, temp)) {
-					//if user guesses correctly; do nothing
+	while(counter < 6 && gameOver(guess, targetWord) == false)
+      	{
+        	printMan(counter);
+		printArray(guess);
+		char temp = getUserInput(guess);
+        	if(input(targetWord,guess, temp)) {
+			//if user guesses correctly; do nothing
+		}
+		else {	//if user enters incorrectly; inc counter
+			counter++;
 				}
-				else {	//if user enters incorrectly; inc counter
-					counter++;
-				}
+
+        	if(counter == 6)
+        	{
+          		printMan(counter);
+          		cout << "You lost!" << endl;
+        	}
+        
+        	if (counter < 6 && gameOver(guess, targetWord))
+        	{
+          	cout << "You won!" << endl;
+        	}
       }
+       
+       
+
+      
 //Block to restart game if user chooses to play again
     cout << "Would you like to play again? (y/n)" << endl;
     cin >> play;
@@ -56,11 +71,13 @@ int main() {
 			cout << endl;
 			cout << "Thanks for playing!" << endl;
       gameState = false;
+			
 		}
 		else {
 			counter = 0; //reset counter
 		}
-  } 
+  }
+  
 	
 
 }
