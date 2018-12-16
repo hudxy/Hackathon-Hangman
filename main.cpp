@@ -28,17 +28,18 @@ int main() {
 	string targetWord;
   char play = ' ';
   bool gameState = true;	//intialize the start of the game
-  vector<char> guess;
+ 
   while (gameState)
   {
     cout << "HANGMAN" << endl;
-    
+    vector<char> guess;
     targetWord = wordSelect();	//variable for random word
 
    
 		while(counter < 7)
       {
         printMan(counter);
+				printArray(guess);
 				char temp = getUserInput(guess);
         if(input(targetWord,guess, temp)) {
 					//if user guesses correctly; do nothing
@@ -301,4 +302,17 @@ bool gameOver(vector<char> guess, string word)
   else
     return false;
 
+}
+
+/*********************************************************************************************************
+Prints users guesses
+**********************************************************************************************************/
+void printArray(vector<char> guess) {
+	cout << endl << "The letters you have guessed are: ";
+	for(int i =0; i < guess.size(); i++) {
+		if((guess[i] >= 65 && guess[i] <= 90)) {
+			cout << guess[i] << " ";
+		}
+	}
+	cout << endl;
 }
