@@ -31,6 +31,7 @@ int main()
   	bool gameState = true;	//intialize the start of the game
   	while (gameState)
   	{
+			cout << string(50, '\n');
 			//Introduction
     		 cout << endl << "              Welcome to C++ Hangman!" << endl;
 		cout << "This program was authored by: Mikayla Friend & Hudson Dean" << endl << endl;
@@ -39,9 +40,9 @@ int main()
 		cout << "There are sample words given in hangman.txt.. if you wish to add more words, please add the word on a new line in the hangman.txt file. \n";
 		cout << "Restrictions: The program is not equipt to handle words with spaces or numbers so please make sure the added words contain only the letters A thru Z!\n";
 		cout << endl << endl;
+		
     		vector<char> guess;
     		targetWord = wordSelect();	//variable for random word
-		cout << string(50, '\n');
    
 		while(counter < 6 && gameOver(guess, targetWord) == false)
       		{
@@ -342,3 +343,4 @@ void printArray(vector<char> guess) {
 	}
 	cout << endl;
 }
+
