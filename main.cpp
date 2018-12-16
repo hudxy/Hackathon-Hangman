@@ -61,6 +61,7 @@ int main()
         		{
           			printMan(counter);
           			cout << "You lost!" << endl;
+				cout << "The correct answer was " << targetWord << endl;
         		}
         
         		if (counter < 6 && gameOver(guess, targetWord))
