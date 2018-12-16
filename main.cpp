@@ -10,13 +10,18 @@ using std::fstream;
 using std::string;
 
 void printMan(int);
+string wordSelect();
+void input(string);
 
 int main() {
 	int counter; //variable to keep track of 
 	string targetWord;
+	
+	targetWord = wordSelect();
 		
 	cout << targetWord;	//debugging (can delete later)
-
+	
+	input(targetWord);
 
 	printMan(counter);
 	
@@ -143,3 +148,11 @@ void printMan(int counter) {
 		}
 	}
 }
+
+
+/*******************************************************************************************************
+Loops to validate input and compare input to correct answer
+*******************************************************************************************************/
+void input(string word)
+{
+	
