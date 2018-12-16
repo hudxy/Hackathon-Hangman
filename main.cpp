@@ -27,53 +27,55 @@ int main()
 	int counter=0; //variable to keep track of 
 	srand((unsigned)time(0));	//seed for random number generator
 	string targetWord;
-  char play = ' ';
-  bool gameState = true;	//intialize the start of the game
-  while (gameState)
-  {
-    cout << "HANGMAN" << endl;
-    vector<char> guess;
-    targetWord = wordSelect();	//variable for random word
-
+ 	char play = ' ';
+  	bool gameState = true;	//intialize the start of the game
+  	while (gameState)
+  	{
+    		cout << "HANGMAN" << endl;
+    		vector<char> guess;
+    		targetWord = wordSelect();	//variable for random word
+		cout << string(50, '\n');
    
-	while(counter < 6 && gameOver(guess, targetWord) == false)
-      	{
-        	printMan(counter);
-		printArray(guess);
-		char temp = getUserInput(guess);
-        	if(input(targetWord,guess, temp)) {
-			//if user guesses correctly; do nothing
-		}
-		else {	//if user enters incorrectly; inc counter
+		while(counter < 6 && gameOver(guess, targetWord) == false)
+      		{
+        		printMan(counter);
+			printArray(guess);
+			char temp = getUserInput(guess);
+        		cout << string(50, '\n');
+			if(input(targetWord,guess, temp)) {
+				//if user guesses correctly; do nothing
+			}
+			else {	//if user enters incorrectly; inc counter
 			counter++;
 				}
 
-        	if(counter == 6)
-        	{
-          		printMan(counter);
-          		cout << "You lost!" << endl;
-        	}
+        		if(counter == 6)
+        		{
+          			printMan(counter);
+          			cout << "You lost!" << endl;
+        		}
         
-        	if (counter < 6 && gameOver(guess, targetWord))
-        	{
-          	cout << "You won!" << endl;
-        	}
+        		if (counter < 6 && gameOver(guess, targetWord))
+        		{
+          			printMan(counter);
+				cout << "You won!" << endl;
+        		}
       }
        
        
 
       
 //Block to restart game if user chooses to play again
-    cout << "Would you like to play again? (y/n)" << endl;
-    cin >> play;
+    	cout << "Would you like to play again? (y/n)" << endl;
+    	cin >> play;
 		charInputVal(play);	//validate user input to play again
-    if(play == 'n' || play == 'N') {
+    	if(play == 'n' || play == 'N') {
 			cout << endl;
 			cout << "Thanks for playing!" << endl;
-      gameState = false;
+    			gameState = false;
 			
 		}
-		else {
+	else {
 			counter = 0; //reset counter
 		}
   }
@@ -255,7 +257,7 @@ bool letterInWord(char letter, vector<char> guesses) {
 }
 
 /*******************************************************************************************************
-loops to validate input
+loops to validate guess
 *******************************************************************************************************/
 bool validInput(char guess)
 {
