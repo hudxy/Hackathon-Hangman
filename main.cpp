@@ -2,47 +2,56 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::fstream;
 using std::string;
+using std::vector;
 
 void printMan(int);
 string wordSelect();
-void input(string);
-
+void input(string, vector<char>&);
+bool validInput(char);
+char charInputVal(char &);
+bool letterInWord(char, vector<char>);
 
 int main() {
 	int counter=0; //variable to keep track of 
+	srand((unsigned)time(0));	//seed for random number generator
 	string targetWord;
   char play = ' ';
-  bool gameState = true;
-  
+  bool gameState = true;	//intialize the start of the game
+  vector<char> guess;
   while (gameState)
   {
     cout << "HANGMAN" << endl;
     
-    targetWord = wordSelect();
+    targetWord = wordSelect();	//variable for random word
 
     cout << "Enter a letter to guess the word!" << endl;
 
-    for (int i=6; i>-1; i--)
+		while(counter < 7)
       {
-        printMan(i);
+        printMan(counter);
+
+        input(targetWord,guess);
+
 
         
-
-
-        //system("CLS")
         
       }
-
+//Block to restart game if user chooses to play again
     cout << "Would you like to play again? (y/n)" << endl;
     cin >> play;
-    if(play == 'n')
+		charInputVal(play);	//validate user input to play again
+    if(play == 'n' || play == 'N') {
+			cout << endl;
+			cout << "Thanks for playing!" << endl;
       gameState = false;
+		}
   } 
 	
 
@@ -55,7 +64,6 @@ string wordSelect()
 {
   string targetWord;
   int count = 0;
-  srand((unsigned)time(0));	//seed for random number generator
 	fstream wordFile;
 
 	wordFile.open("hangman.txt");
@@ -90,7 +98,7 @@ void printMan(int counter) {
 	switch(counter) {
 		case 0: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << "         | \n";
 			cout << "         | \n";
@@ -101,7 +109,7 @@ void printMan(int counter) {
 		}
 		case 1: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << "   O     | \n";
 			cout << "         | \n";
@@ -112,7 +120,7 @@ void printMan(int counter) {
 		}
 		case 2: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << "   O     | \n";
 			cout << "   X     | \n";
@@ -123,7 +131,7 @@ void printMan(int counter) {
 		}
 		case 3: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << "   O     | \n";
 			cout << "   X     | \n";
@@ -134,7 +142,7 @@ void printMan(int counter) {
 		}
 		case 4: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << "   O     | \n";
 			cout << "   X     | \n";
@@ -145,7 +153,7 @@ void printMan(int counter) {
 		}
 		case 5: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << "   O /   | \n";
 			cout << "   X     | \n";
@@ -156,7 +164,7 @@ void printMan(int counter) {
 		}
 		case 6: {
 			cout << endl;
-			cout << "   ------  \n";
+			cout << "   ------- \n";
 			cout << "   |     | \n";
 			cout << " \\ O /   | \n";
 			cout << "   X     | \n";
@@ -172,24 +180,44 @@ void printMan(int counter) {
 /*******************************************************************************************************
 Loops to validate input and compare input to correct answer
 *******************************************************************************************************/
-void input(string word)
+void input(string word, vector<char>& guesses)
 {
-	char first;
-	cout << "Please enter a character to guess... (A-Z)" << endl;
-	cin >> first;
-	char input = tolower(first);
-	
-	for(int i =0; i< word.length(); i++) {
-		if(input == word[i]) {
-			cout << word[i];
-		}
-		else {
-			cout << "_" << " ";
-		}
+	char input;
+	cout << "Please enter a character to guess... (A-Z)" << endl;	//prompt user
+	cin >> input;
+	while(!validInput(input)) {	//validation block
+		cout << endl << "Sorry, that input was not an acceptable character.\n";
+		cout << "Please enter a character (A-Z)" << endl;
+		cin >> input;
 	}
+	char lowerCase = tolower(input);	//accounts for lowercase
+	char upperCase = toupper(input);	//accounts for uppercase
+	guesses.push_back(lowerCase);
+	guesses.push_back(upperCase);			//adds upper and lower case to vector array
+
+	for(int i =0; i< word.length(); i++) {
+			if(letterInWord(word[i], guesses)) {
+				cout << word[i] << " ";
+			}
+			else {
+
+				cout << "_" << " ";
+			}
+		}
 	cout << endl;
 }
 
+/*******************************************************************************************************
+checks if a given letter is in an array (vector)
+*******************************************************************************************************/
+bool letterInWord(char letter, vector<char> guesses) {
+	for(int i =0; i < guesses.size(); i++) {
+		if(letter == guesses[i]) {
+			return true;
+		}
+	}
+	return false;
+}
 
 /*******************************************************************************************************
 loops to validate input
@@ -200,4 +228,15 @@ bool validInput(char guess)
     return true;
   else
     return false;
+}
+
+char charInputVal(char &input)
+{
+	//input validation loop
+ while(input != 'Y' && input !='N' && input != 'y' && input !='n') {
+  cout << "Sorry that input is invalid; Please try again" << endl;
+  cin >> input;
+	}
+
+	return input;
 }
