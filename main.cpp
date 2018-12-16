@@ -230,6 +230,10 @@ bool validInput(char guess)
     return false;
 }
 
+
+/******************************************************************************************************
+validate input of "Do you want to play again"
+*******************************************************************************************************/
 char charInputVal(char &input)
 {
 	//input validation loop
