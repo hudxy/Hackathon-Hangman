@@ -30,7 +30,6 @@ Chooses word from txt file using random number generator.
 string wordSelect()
 {
   string targetWord;
-  string value;
   int count = 0;
   srand((unsigned)time(0));	//seed for random number generator
 	fstream wordFile;
@@ -41,7 +40,7 @@ string wordSelect()
 		exit(0);
 	}
 	
-  while (wordFile >> value) //counts how many words are in the file
+  while (wordFile >> targetValue) //counts how many words are in the file
     count++;
     
 	int randomNum = ((rand() % count)+1); //random number generator for selecting word
