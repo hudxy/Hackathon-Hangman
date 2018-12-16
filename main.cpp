@@ -13,11 +13,13 @@ using std::vector;
 
 void printMan(int);
 string wordSelect();
-bool input(string, vector<char>&);
+bool input(string, vector<char>&, char);
 bool validInput(char);
 char charInputVal(char &);
 bool letterInWord(char, vector<char>);
 void printArray(vector<char>);
+char getUserInput(vector<char>);
+
 
 int main() {
 	int counter=0; //variable to keep track of 
@@ -32,13 +34,12 @@ int main() {
     
     targetWord = wordSelect();	//variable for random word
 
-    cout << "Enter a letter to guess the word!" << endl;
-
+   
 		while(counter < 7)
       {
         printMan(counter);
-
-        if(input(targetWord,guess)) {
+				char temp = getUserInput(guess);
+        if(input(targetWord,guess, temp)) {
 					//if user guesses correctly; do nothing
 				}
 				else {	//if user enters incorrectly; inc counter
@@ -185,17 +186,21 @@ void printMan(int counter) {
 /*******************************************************************************************************
 Loops to validate input and compare input to correct answer
 *******************************************************************************************************/
-bool input(string word, vector<char>& guesses)
+bool input(string word, vector<char>& guesses, char input)
 {
 	bool guessRight = false;
-	char input;
+	/*char input;
 	cout << "Please enter a character to guess... (A-Z)" << endl;	//prompt user
 	cin >> input;
 	while(!validInput(input)) {	//validation block
 		cout << endl << "Sorry, that input was not an acceptable character.\n";
 		cout << "Please enter a character (A-Z)" << endl;
-		cin >> input;
+		cin >> input;	
 	}
+	while(letterInWord(input, guesses)) {
+			cout << endl << "You have already guessed this chracter, Please choose another." << endl;
+			cin >> input;
+	}*/
 	char lowerCase = tolower(input);	//accounts for lowercase
 	char upperCase = toupper(input);	//accounts for uppercase
 	guesses.push_back(lowerCase);
@@ -237,7 +242,7 @@ bool validInput(char guess)
 {
   if((guess >= 65 && guess <= 90) || (guess >= 97 && guess <= 122))
     return true;
-  else
+  else 
     return false;
 }
 
@@ -254,4 +259,26 @@ char charInputVal(char &input)
 	}
 
 	return input;
+}
+
+char getUserInput(vector<char> guess) {
+	char userInput;
+		cout << "Please enter a character to guess... (A-Z)" << endl;	//prompt user
+		cin >> userInput;
+		bool resume = true;
+		while(resume) {
+			if(letterInWord(userInput, guess)) {
+			cout << endl << "You have already guessed this chracter, Please choose another." << endl;
+			cin >> userInput;
+		}
+		else if (!validInput(userInput)){
+			cout << endl << "Sorry, that input was not an acceptable character.\n";
+			cout << "Please enter a character (A-Z)" << endl;
+			cin >> userInput;	
+		}
+		else if((!letterInWord(userInput, guess)) && validInput(userInput)) {
+			resume = false;
+		}
+	}
+	return userInput;
 }
