@@ -12,30 +12,52 @@ using std::string;
 void printMan(int);
 
 int main() {
-	srand((unsigned)time(0));	//seed for random number generator
 	int counter; //variable to keep track of 
 	string targetWord;
-	fstream wordFile;
-
-	wordFile.open("hangman.txt");
-	if(!wordFile.is_open()) {	//Checks if file is open
-		cout << "Sorry, file could not be found... aborting program." << endl;
-		return 0;
-	}
-	
-	int randomNum = ((rand() % 10)+1); //random number generator for selecting word
-	for(int i=0; i < randomNum; i++) {	
-		std::getline(wordFile, targetWord);	//get selected word
-	}
-	
+		
 	cout << targetWord;	//debugging (can delete later)
 
 
 	printMan(counter);
 	
 
-  wordFile.close();
+  	return 0;
 }
+
+/***********************************************************************************************************
+Chooses word from txt file using random number generator. 
+***********************************************************************************************************/
+string wordSelect()
+{
+  string targetWord;
+  string value;
+  int count = 0;
+  srand((unsigned)time(0));	//seed for random number generator
+	fstream wordFile;
+
+	wordFile.open("hangman.txt");
+	if(!wordFile.is_open()) {	//Checks if file is open
+		cout << "Sorry, file could not be found... aborting program." << endl;
+		exit(0);
+	}
+	
+  while (wordFile >> value) //counts how many words are in the file
+    count++;
+    
+	int randomNum = ((rand() % count)+1); //random number generator for selecting word
+	   
+  wordFile.clear(); 
+  wordFile.seekg(0, std::ios::beg); //clears failure flag for wordFile
+  
+  for(int i=0; i < randomNum; i++) 
+  {	
+		std::getline(wordFile, targetWord);	//get selected word
+	}
+
+  wordFile.close();
+  return targetWord;
+} 
+
 
 //function takes in the game counter as a parameter
 //prints corresponding hangman
