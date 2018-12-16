@@ -19,7 +19,7 @@ char charInputVal(char &);
 bool letterInWord(char, vector<char>);
 void printArray(vector<char>);
 char getUserInput(vector<char>);
-
+bool gameOver(vector<char>, string);
 
 
 int main() {
@@ -28,17 +28,17 @@ int main() {
 	string targetWord;
   char play = ' ';
   bool gameState = true;	//intialize the start of the game
+  vector<char> guess;
   while (gameState)
   {
     cout << "HANGMAN" << endl;
-    vector<char> guess;
+    
     targetWord = wordSelect();	//variable for random word
 
    
 		while(counter < 7)
       {
         printMan(counter);
-				printArray(guess);
 				char temp = getUserInput(guess);
         if(input(targetWord,guess, temp)) {
 					//if user guesses correctly; do nothing
@@ -55,7 +55,6 @@ int main() {
 			cout << endl;
 			cout << "Thanks for playing!" << endl;
       gameState = false;
-			
 		}
 		else {
 			counter = 0; //reset counter
@@ -191,6 +190,18 @@ Loops to validate input and compare input to correct answer
 bool input(string word, vector<char>& guesses, char input)
 {
 	bool guessRight = false;
+	/*char input;
+	cout << "Please enter a character to guess... (A-Z)" << endl;	//prompt user
+	cin >> input;
+	while(!validInput(input)) {	//validation block
+		cout << endl << "Sorry, that input was not an acceptable character.\n";
+		cout << "Please enter a character (A-Z)" << endl;
+		cin >> input;	
+	}
+	while(letterInWord(input, guesses)) {
+			cout << endl << "You have already guessed this chracter, Please choose another." << endl;
+			cin >> input;
+	}*/
 	char lowerCase = tolower(input);	//accounts for lowercase
 	char upperCase = toupper(input);	//accounts for uppercase
 	guesses.push_back(lowerCase);
@@ -274,12 +285,20 @@ char getUserInput(vector<char> guess) {
 }
 
 
-void printArray(vector<char> guess) {
-	cout << endl << "The letters you have guessed are: ";
-	for(int i =0; i < guess.size(); i++) {
-		if((guess[i] >= 65 && guess[i] <= 90)) {
-			cout << guess[i] << " ";
-		}
-	}
-	cout << endl;
+/*********************************************************************************************************
+checks for game ending condition
+**********************************************************************************************************/
+bool gameOver(vector<char> guess, string word)
+{
+  int chCount = 0;
+  for(int i=0; i<word.length(); i++) {
+    if(letterInWord(word[i], guess))
+      chCount++;
+  }
+
+  if(chCount == word.length())
+    return true;
+  else
+    return false;
+
 }
