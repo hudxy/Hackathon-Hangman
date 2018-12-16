@@ -13,10 +13,11 @@ using std::vector;
 
 void printMan(int);
 string wordSelect();
-void input(string, vector<char>&);
+bool input(string, vector<char>&);
 bool validInput(char);
 char charInputVal(char &);
 bool letterInWord(char, vector<char>);
+void printArray(vector<char>);
 
 int main() {
 	int counter=0; //variable to keep track of 
@@ -37,11 +38,12 @@ int main() {
       {
         printMan(counter);
 
-        input(targetWord,guess);
-
-
-        
-        
+        if(input(targetWord,guess)) {
+					//if user guesses correctly; do nothing
+				}
+				else {	//if user enters incorrectly; inc counter
+					counter++;
+				}
       }
 //Block to restart game if user chooses to play again
     cout << "Would you like to play again? (y/n)" << endl;
@@ -51,6 +53,9 @@ int main() {
 			cout << endl;
 			cout << "Thanks for playing!" << endl;
       gameState = false;
+		}
+		else {
+			counter = 0; //reset counter
 		}
   } 
 	
@@ -180,8 +185,9 @@ void printMan(int counter) {
 /*******************************************************************************************************
 Loops to validate input and compare input to correct answer
 *******************************************************************************************************/
-void input(string word, vector<char>& guesses)
+bool input(string word, vector<char>& guesses)
 {
+	bool guessRight = false;
 	char input;
 	cout << "Please enter a character to guess... (A-Z)" << endl;	//prompt user
 	cin >> input;
@@ -195,16 +201,21 @@ void input(string word, vector<char>& guesses)
 	guesses.push_back(lowerCase);
 	guesses.push_back(upperCase);			//adds upper and lower case to vector array
 
+
 	for(int i =0; i< word.length(); i++) {
-			if(letterInWord(word[i], guesses)) {
+			if(word[i] == lowerCase || word[i] == upperCase) {
+				cout << word[i] << " ";
+				guessRight = true;
+			}
+			else if(letterInWord(word[i], guesses)) {
 				cout << word[i] << " ";
 			}
 			else {
-
 				cout << "_" << " ";
 			}
 		}
 	cout << endl;
+	return guessRight;
 }
 
 /*******************************************************************************************************
