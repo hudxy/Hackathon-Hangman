@@ -15,27 +15,37 @@ void input(string);
 
 
 int main() {
-	int counter; //variable to keep track of 
+	int counter=0; //variable to keep track of 
 	string targetWord;
-	
-	targetWord = wordSelect();
-		
-	cout << targetWord << endl;	//debugging (can delete later)
-	
-	//input(targetWord);
+  char play = ' ';
+  bool gameState = true;
+  
+  while (gameState)
+  {
+    cout << "HANGMAN" << endl;
+    
+    targetWord = wordSelect();
 
-	//printMan(counter);
+    cout << "Enter a letter to guess the word!" << endl;
 
+    for (int i=6; i>-1; i--)
+      {
+        printMan(i);
+
+        
+
+
+        //system("CLS")
+        
+      }
+
+    cout << "Would you like to play again? (y/n)" << endl;
+    cin >> play;
+    if(play == 'n')
+      gameState = false;
+  } 
 	
 
-	while(counter < 7) {
-		input(targetWord);
-		printMan(counter);
-		counter++;
-	}
-	
-
-	return 0;
 }
 
 /***********************************************************************************************************
